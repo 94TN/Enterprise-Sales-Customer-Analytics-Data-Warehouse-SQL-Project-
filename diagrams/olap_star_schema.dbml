@@ -1,0 +1,47 @@
+Table dim_customers {
+  customer_id int [pk]
+  customer_name varchar
+  email varchar
+  city varchar
+  signup_date date
+}
+
+Table dim_products {
+  product_id int [pk]
+  product_name varchar
+  category varchar
+  price numeric
+  cost numeric
+}
+
+Table dim_employees {
+  employee_id int [pk]
+  employee_name varchar
+  role varchar
+  hire_date date
+}
+
+Table dim_dates {
+  date_id int [pk]
+  date date
+  year int
+  month int
+  day int
+}
+
+Table fact_sales {
+  fact_id int [pk, increment]
+  order_id int
+  customer_id int
+  employee_id int
+  product_id int
+  date_id int
+  quantity int
+  revenue numeric
+  profit numeric
+}
+
+Ref: fact_sales.customer_id > dim_customers.customer_id
+Ref: fact_sales.product_id > dim_products.product_id
+Ref: fact_sales.employee_id > dim_employees.employee_id
+Ref: fact_sales.date_id > dim_dates.date_id
